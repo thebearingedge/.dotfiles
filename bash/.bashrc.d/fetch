@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 # rice the terminal as long as it's not tty1
-if [ "$(basename "$(tty)")" != tty1 ]; then
+if [ "$(basename "$(tty)")" != 'tty1' ]; then
   neofetch
 fi
