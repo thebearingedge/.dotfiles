@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+aur() {
+  for package in "${@}"; do
+    repository="https://aur.archlinux.org/$package.git"
+    temp_dir="/tmp/$package"
+    git clone "$repository" "$temp_dir" &&
+    (
+      cd "$temp_dir" &&
+      makepkg --noconfirm --syncdeps --install --rmdeps --clean
+    )
+    rm -rf "$temp_dir"
+  done
+  unset package repository temp_dir
+}
