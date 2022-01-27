@@ -8,6 +8,12 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+# Compositor!
+#
+# picom-git
+
+exec_always --no-startup-id "killall picom; picom --config ~/.config/picom/picom.conf -b"
+
 # Gaps!
 #
 # https://github.com/Airblader/i3#gaps
