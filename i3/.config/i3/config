@@ -206,3 +206,9 @@ bindsym $mod+r mode "resize"
 # bar {
 #         status_command i3status
 # }
+
+# Polybar!
+#
+# launched via shell script
+
+exec_always --no-startup-id "~/.config/polybar/launch.bash"
