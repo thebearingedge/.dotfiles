@@ -3,3 +3,4 @@
 alias ls='ls --color=auto'
 alias pbcopy='xclip -selection clipboard'
 alias yay='paru'
+alias yeet='paru -Rcs'
