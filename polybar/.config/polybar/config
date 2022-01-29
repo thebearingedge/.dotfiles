@@ -54,8 +54,8 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Symbols Nerd Font:style=2048-em:pixelsize=18;1
 
 modules-left = i3
-modules-center =  cpu memory filesystem wlan eth
-modules-right = date powermenu
+modules-center = xwindow
+modules-right = date
 
 tray-position = right
 tray-padding =
@@ -75,25 +75,9 @@ tray-padding =
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-;[module/xwindow]
-;type = internal/xwindow
-;label = %title:0:30:...%
-
-;[module/xkeyboard]
-;type = internal/xkeyboard
-;blacklist-0 = num lock
-
-;format-prefix = " "
-;format-prefix-foreground = ${colors.foreground-alt}
-;format-prefix-underline = ${colors.secondary}
-
-;label-layout = %layout%
-;label-layout-underline = ${colors.secondary}
-
-;label-indicator-padding = 2
-;label-indicator-margin = 1
-;label-indicator-background = ${colors.secondary}
-;label-indicator-underline = ${colors.secondary}
+[module/xwindow]
+type = internal/xwindow
+label = %title%
 
 [module/i3]
 type = internal/i3
@@ -144,28 +128,6 @@ label-mounted-foreground = ${colors.foreground}
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
-;[module/bspwm]
-;type = internal/bspwm
-
-;label-focused = %index%
-;label-focused-background = ${colors.background-alt}
-;label-focused-underline= ${colors.tree-poppy}
-;label-focused-padding = 2
-
-;label-occupied = %index%
-;label-occupied-padding = 2
-
-;label-urgent = %index%!
-;label-urgent-background = ${colors.alert}
-;label-urgent-padding = 2
-
-;label-empty = %index%
-;label-empty-foreground = ${colors.foreground-alt}
-;label-empty-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
-
 ;[module/mpd]
 ;type = internal/mpd
 ;format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
@@ -201,21 +163,21 @@ label-unmounted-foreground = ${colors.foreground-alt}
 ;type = internal/backlight
 ;card = intel_backlight
 
-[module/cpu]
-type = internal/cpu
-interval = 1
-format-prefix = "﬙  "
-format-prefix-foreground = ${colors.comment}
-format-underline = ${colors.radical-red}
-label = %percentage%%
+;[module/cpu]
+;type = internal/cpu
+;interval = 1
+;format-prefix = "﬙  "
+;format-prefix-foreground = ${colors.comment}
+;format-underline = ${colors.radical-red}
+;label = %percentage%%
 
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix = "  "
-format-prefix-foreground = ${colors.comment}
-format-underline = ${colors.pear}
-label = %gb_used% / %gb_total%
+;[module/memory]
+;type = internal/memory
+;interval = 2
+;format-prefix = "  "
+;format-prefix-foreground = ${colors.comment}
+;format-underline = ${colors.pear}
+;label = %gb_used% / %gb_total%
 
 ;[module/wlan]
 ;type = internal/network
@@ -239,15 +201,21 @@ label = %gb_used% / %gb_total%
 ;ramp-signal-4 = 
 ;ramp-signal-foreground = ${colors.foreground-alt}
 
-[module/eth]
-type = internal/network
-interface = enp0s5
-interval = 3.0
+;[module/eth]
+;type = internal/network
+;interface = enp0s5
+;interval = 3.0
 
-format-connected-underline = ${colors.spray}
-format-connected-prefix = "ﯱ  "
-format-connected-prefix-foreground = ${colors.comment}
-label-connected = %local_ip%
+;format-connected-underline = ${colors.spray}
+;format-connected-prefix = "ﯱ  "
+;format-connected-prefix-foreground = ${colors.comment}
+;label-connected = %local_ip%
+
+;format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
@@ -259,18 +227,12 @@ date-alt =
 time = " %I:%M %p"
 time-alt =
 
-format-prefix = "  "
+;format-prefix = "  "
 format-prefix-foreground = ${colors.comment}
 format-underline = ${colors.comment}
 
 label = %date% %time%
 
-
-;format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 ;[module/pulseaudio]
 ;type = internal/pulseaudio
@@ -379,34 +341,35 @@ label = %date% %time%
 ;ramp-2 = 
 ;ramp-foreground = ${colors.foreground-alt}
 
-[module/powermenu]
-type = custom/menu
+;[module/powermenu]
+;type = custom/menu
 
-expand-right = true
+;expand-right = true
 
-format-spacing = 1
+;format-spacing = 2
 
-label-open = ⏻
-label-open-foreground = ${colors.foreground}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+;label-open = 
+;label-open-foreground = ${colors.foreground}
+;label-close = ﰸ
+;label-close-foreground = ${colors.secondary}
+;label-separator = |
+;label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
+;menu-2-0 = Cancel
+;menu-2-0-exec = menu-open-0
+;menu-2-1 = Shut Down
+;menu-2-1-exec = sudo poweroff
 
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
+;menu-0-0 = Reboot
+;menu-0-0-exec = menu-open-1
+;menu-0-1 = Shut Down
+;menu-0-1-exec = menu-open-2
 
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
+;menu-1-0 = Cancel
+;menu-1-0-exec = menu-open-0
+;menu-1-1 = Reboot
+;menu-1-1-exec = sudo reboot
+
 
 [settings]
 screenchange-reload = true
