@@ -11,7 +11,7 @@ configuration {
 @theme "/dev/null"
 
 * {
-  bg: #111111ee;
+  bg: #111111cc;
   fg: #8c8c8c;
   fg-bright: #f9f8f5;
 
