@@ -13,3 +13,7 @@ aur() {
   done
   unset package repository temp_dir
 }
+
+config() {
+  /usr/bin/git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" "$@"
+}
