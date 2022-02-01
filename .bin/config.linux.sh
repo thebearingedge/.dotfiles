@@ -26,7 +26,7 @@ config() {
     https://github.com/thebearingedge/.dotfiles.git \
     "$git_dir"
 
-  if dot checkout != 0; then
+  if ! dot checkout; then
     echo "backing up displaced dot files to $backup_dir..."
     mkdir -p "$backup_dir"
     dot checkout 2>&1 |
