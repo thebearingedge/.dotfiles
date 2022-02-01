@@ -1,18 +1,10 @@
 #!/bin/sh
 
-set -eu
-
 git_dir="$HOME/.dotfiles.git"
 backup_dir="$HOME/.dotfiles.bak"
 
 dot() {
   /usr/bin/git --git-dir="$git_dir" --work-tree="$HOME" "$@"
-}
-
-backup() {
-  file="$1"
-  mkdir -p "$(realpath "$("$backup_dir/$(dirname "$file")")")"
-  mv "$file" "$backup_dir/$file"
 }
 
 config() {
@@ -29,19 +21,18 @@ config() {
       "$git_dir"
   fi
 
-  dot checkout || {
+  if ! dot checkout > /dev/null 2>&1; then
     echo "backing up displaced dot files to $backup_dir..."
-    mkdir -p "$backup_dir"
-    ! dot checkout 2>&1 |
-      grep -e '^[[:space:]]\.' |
-      awk '{print $1}' |
-      xargs -I % backup % ||
-      false
-    find "$backup_dir"
-  }
+    files="$(dot checkout 2>&1 | grep -e '^[[:space:]]\.' | awk '{print $1}')"
+    for f in $files; do
+      echo "creating $backup_dir/$f"
+      mkdir -p "$backup_dir/$(dirname "$f")"
+      mv "$f" "$backup_dir/$f"
+    done
+  fi
 
-  dot checkout
-  dot config status.showUntrackedFiles no
+  dot checkout &&
+  dot config status.showUntrackedFiles no &&
 
   echo "dotfiles installed"
 }
