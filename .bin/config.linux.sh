@@ -11,20 +11,17 @@ dot() {
 
 config() {
 
-  if [ -d "$git_dir" ]; then
-    echo "$git_dir already exists... exiting" >&2
-    exit 1
-  fi
-
   if ! command -v git; then
     echo 'git is required to run this script' >&2
     exit 1
   fi
 
-  echo 'cloning dotfiles...'
-  git clone --bare \
-    https://github.com/thebearingedge/.dotfiles.git \
-    "$git_dir"
+  if [ ! -d "$git_dir" ]; then
+    echo 'cloning dotfiles...'
+    git clone --bare \
+      https://github.com/thebearingedge/.dotfiles.git \
+      "$git_dir"
+  fi
 
   if ! dot checkout; then
     echo "backing up displaced dot files to $backup_dir..."
