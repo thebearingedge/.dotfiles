@@ -23,14 +23,16 @@ config() {
       "$git_dir"
   fi
 
-  if ! dot checkout; then
+  dot checkout || {
     echo "backing up displaced dot files to $backup_dir..."
     mkdir -p "$backup_dir"
     dot checkout 2>&1 |
-      grep -e "\s+\." |
+      grep -e '^[[:space:]]\.' |
       awk '{print $1}' |
-      xargs -I {} mv {} "$backup_dir/{}"
-  fi
+      xargs -I % sh -c "mkdir -p $(realpath "$backup_dir/$(dirname %)"); mv % $backup_dir/%" ||
+      true
+    find "$backup_dir"
+  }
 
   dot checkout
   dot config status.showUntrackedFiles no
