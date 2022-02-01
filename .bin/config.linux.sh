@@ -9,6 +9,12 @@ dot() {
   /usr/bin/git --git-dir="$git_dir" --work-tree="$HOME" "$@"
 }
 
+backup() {
+  file="$1"
+  mkdir -p "$(realpath "$("$backup_dir/$(dirname "$file")")")"
+  mv "$file" "$backup_dir/$file"
+}
+
 config() {
 
   if ! command -v git; then
@@ -26,11 +32,11 @@ config() {
   dot checkout || {
     echo "backing up displaced dot files to $backup_dir..."
     mkdir -p "$backup_dir"
-    dot checkout 2>&1 |
+    ! dot checkout 2>&1 |
       grep -e '^[[:space:]]\.' |
       awk '{print $1}' |
-      xargs -I % sh -c "mkdir -p $(realpath "$backup_dir/$(dirname %)"); mv % $backup_dir/%" ||
-      true
+      xargs -I % backup % ||
+      false
     find "$backup_dir"
   }
 
