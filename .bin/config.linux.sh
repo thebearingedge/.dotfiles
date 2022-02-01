@@ -23,7 +23,7 @@ config() {
 
   echo 'cloning dotfiles...'
   git clone --bare \
-    git@github.com:thebearingedge/.dotfiles.git \
+    https://github.com/thebearingedge/.dotfiles.git \
     "$git_dir"
 
   if dot checkout != 0; then
