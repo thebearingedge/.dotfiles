@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-# shellcheck source=/dev/null
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-
-if [[ -z "$DISPLAY" ]] && [[ "$(tty)" = /dev/tty1 ]]; then
+if [ -z "$DISPLAY" ] && [ "$(basename "$(tty)")" = 'tty1' ]; then
+  # load graphical environment
   clear
   exec startx > /dev/null 2>&1
+else
+  # load shell environment
+  # shellcheck source=/dev/null
+  [ -f ~/.bashrc ] && source ~/.bashrc
 fi
