@@ -6,3 +6,5 @@
 	ff = only
 [include]
 	path = ~/.gitconfig.local
+[push]
+	default = current
