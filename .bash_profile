@@ -3,7 +3,7 @@
 if [ -z "$DISPLAY" ] && [ "$(basename "$(tty)")" = 'tty1' ]; then
   # load graphical environment
   clear
-  exec startx > /dev/null 2>&1
+  sway > /dev/null 2>&1
 else
   # load shell environment
   # shellcheck source=/dev/null
